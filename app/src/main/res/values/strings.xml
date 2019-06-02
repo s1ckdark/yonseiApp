@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">YonseiApp</string>
+    <string name="title_activity_store_manager">StoreManagerActivity</string>
 </resources>

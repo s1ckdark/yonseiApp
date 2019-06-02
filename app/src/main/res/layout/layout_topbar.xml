@@ -24,8 +24,19 @@
         android:layout_weight="1"
         android:background="@color/redTheme2"
         android:gravity="center"
-        android:text="Main"
+        android:text="내 정보 보기"
         android:textColor="@color/white" />
+
+    <TextView
+        android:layout_weight="0"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimaryDark"
+        android:padding="10dp"
+        android:onClick="onClickStoreManager"
+        android:text="상점관리"/>
 
     <TextView
         android:id="@+id/topRight"

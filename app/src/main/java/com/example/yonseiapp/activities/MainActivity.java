@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickLogout(View v) {
         SessionTable.inst().pullSession(MainActivity.this);
-        Intent intent = new Intent(this, IntroActivity.class);
+        Intent intent = new Intent (this, IntroActivity.class);
         startActivity(intent);
         finish();
     }

@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import com.example.yonseiapp.R;
 import com.example.yonseiapp.db.SessionTable;
+import com.example.yonseiapp.utils.Utils;
+
 import org.json.JSONObject;
 
 public class SigninActivity extends AppCompatActivity {

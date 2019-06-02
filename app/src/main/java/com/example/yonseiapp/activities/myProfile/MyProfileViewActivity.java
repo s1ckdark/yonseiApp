@@ -7,7 +7,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.yonseiapp.R;
-import com.example.yonseiapp.activities.Utils;
+import com.example.yonseiapp.api.RetCallBack;
+import com.example.yonseiapp.api.UserInfo;
+import com.example.yonseiapp.db.UserInfoTable;
+
+import org.json.JSONObject;
 
 public class MyProfileViewActivity extends AppCompatActivity {
 
@@ -15,6 +19,14 @@ public class MyProfileViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile_view);
+
+        UserInfo.get(this, new RetCallBack() {
+            @Override
+            public void onResponse(Boolean ret, String errMsg) {
+                if(ret)
+                    updateToView();
+            }
+        });
 
         TextView topRight = findViewById(R.id.topRight);
         topRight.setText("플필수정");
@@ -49,6 +61,24 @@ public class MyProfileViewActivity extends AppCompatActivity {
             String age = data.getStringExtra("age");
             tvName.setText(name);
             tvAge.setText(age);
+        }
+    }
+
+    private void updateToView(){
+        try{
+            JSONObject val = UserInfoTable.inst().get();
+            if(val != null){
+                String name = val.getString("name");
+                String age = val.getString("age");
+
+                TextView tvName = findViewById(R.id.name);
+                TextView tvAge = findViewById(R.id.age);
+
+                tvName.setText(name);
+                tvAge.setText(age);
+            }
+        }catch (Exception e){
+
         }
     }
 }

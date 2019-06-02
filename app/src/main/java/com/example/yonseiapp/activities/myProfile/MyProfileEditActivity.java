@@ -8,6 +8,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.yonseiapp.R;
+import com.example.yonseiapp.utils.Utils;
+import com.example.yonseiapp.api.RetCallBack;
+import com.example.yonseiapp.api.UserInfo;
 
 public class MyProfileEditActivity extends AppCompatActivity {
 
@@ -19,8 +22,8 @@ public class MyProfileEditActivity extends AppCompatActivity {
         TextView topTitle = findViewById(R.id.topTitle);
         TextView topRight = findViewById(R.id.topRight);
 
-        topTitle.setText("내 정보 수정");
-        topRight.setText("저장");
+        topTitle.setText("my profile edit");
+        topRight.setText("save");
 
         String name = getIntent().getStringExtra("name");
         String age = getIntent().getStringExtra("age");
@@ -37,15 +40,25 @@ public class MyProfileEditActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-    public void onClickMyProfile(View v) {
+    public void onClickMyProfileEdit(View v){
         Intent result = new Intent();
         EditText etName = findViewById(R.id.name);
         EditText etAge = findViewById(R.id.age);
-        result.putExtra("name", etName.getText().toString());
-        result.putExtra("age", etAge.getText().toString());
+        String name = etName.getText().toString();
+        String age = etAge.getText().toString();
+        result.putExtra("name",name);
+        result.putExtra("age",age);
         setResult(100, result);
+
+        UserInfo.put(this, name, age, new RetCallBack() {
+            @Override
+            public void onResponse(Boolean ret, String errMsg) {
+                if(ret==true)
+                    finish();
+                else
+                    Utils.toast(MyProfileEditActivity.this errMsg);
+            }
+        });
         finish();
-
-
     }
 }

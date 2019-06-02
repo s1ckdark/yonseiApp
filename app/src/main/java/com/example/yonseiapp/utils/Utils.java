@@ -1,6 +1,7 @@
-package com.example.yonseiapp.activities;
+package com.example.yonseiapp.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 import org.json.JSONObject;
@@ -15,6 +16,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class Utils {
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static OkHttpClient client = new OkHttpClient();
@@ -27,7 +30,7 @@ public class Utils {
     }
 
     public static void post(JSONObject params, final PostCallBack cb){
-        post("http://lattecode.site:8080", params.toString(), new Callback() {
+        post("http://192.168.1.50:8084", params.toString(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)
@@ -69,19 +72,17 @@ public class Utils {
             Iterator<String> it = desc.keys();
             while (it.hasNext()) {
                 String key = it.next();
-                src.put(kry, dec.get(key));
+                src.put(key, desc.get(key));
             }
-            { catch(Exception e){
-                e.printStackTrace();
-            }
-            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 
     public static void JsonSave(String className, JSONObject table, Context act){
         SharedPreferences sharedPreferences=act.getSharedPreferences("ysApp", MODE_PRIVATE);
         SharedPreferences.Editor = sharedPreferences.edit();
-        editor.putString(classMame, table.toString());
+        editor.putString(className, table.toString());
         editor.commit();
     }
 
