@@ -15,6 +15,7 @@ import okhttp3.Response;
 public class StoreAddActivity {
 
     JSONObject params = new JSONObject();
+    String apiKey = "AIzaSyD36tH1XgJF42l5_ZQsblQXssEsAbT6QG0";
     String url = "https://maps.googleapis.com/maps/api/geocode/json?";
     String address = ((EditText) findViewById(R.id.address)).getText().toString();
     Utils.post(url+"address="+address+"&key="+apiKey", params.toString(), new Callback(){

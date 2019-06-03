@@ -20,21 +20,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickLogout(View v) {
-        SessionTable.inst().pullSession(MainActivity.this);
-        Intent intent = new Intent (this, IntroActivity.class);
+        SessionTable.inst().delSession(this);
+
+        Intent intent = new Intent(this, IntroActivity.class);
         startActivity(intent);
+
         finish();
     }
 
-    public void onClickBack(View v) {
+    public void onClickBack(View v){
         finish();
     }
-    public void onClickMyProfile(View v) {
+
+    public void onClickMyProfile(View v){
         Intent intent = new Intent(this, MyProfileViewActivity.class);
+        //값 넣고 전달
         intent.putExtra("test", "test");
         intent.putExtra("testInt", 1);
 
         startActivity(intent);
-
     }
 }

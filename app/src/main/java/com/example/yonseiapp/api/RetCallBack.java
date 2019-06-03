@@ -1,6 +1,5 @@
 package com.example.yonseiapp.api;
-import org.json.JSONObject;
-
+//통신 결과를 알려줌
 public interface RetCallBack {
     void onResponse(Boolean ret, String errMsg);
 }

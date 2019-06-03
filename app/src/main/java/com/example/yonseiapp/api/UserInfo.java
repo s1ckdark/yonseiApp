@@ -3,8 +3,9 @@ package com.example.yonseiapp.api;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
-import com.example.yonseiapp.utils.Utils;
 import com.example.yonseiapp.db.SessionTable;
+import com.example.yonseiapp.utils.
+import com.example.yonseiapp.utils.Utils;
 import com.example.yonseiapp.db.UserInfoTable;
 
 import org.json.JSONObject;

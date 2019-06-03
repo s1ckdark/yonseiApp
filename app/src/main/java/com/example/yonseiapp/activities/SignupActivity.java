@@ -12,6 +12,11 @@ import org.json.JSONObject;
 
 public class SignupActivity extends AppCompatActivity {
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_signup);
+    }
     public void onClickSignup(View v) {
         EditText dtID = findViewById(R.id.suetID);
         EditText dtPW = findViewById(R.id.suetPwd);
@@ -38,17 +43,14 @@ public class SignupActivity extends AppCompatActivity {
                         }
                         Utils.toast(SignupActivity.this, "가입성공! 로그인해주세요");
                         finish();
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                        System.out.println("onClickSignup onResponse : " + e);
+                    }
                 }
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("onClickSignup : " + e);
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
-    }
 }

@@ -9,40 +9,43 @@ import org.json.JSONObject;
 
 public class UserInfoTable extends JSONObject {
 
-    private static com.example.yonseiapp.db.UserInfoTable instance = new com.example.yonseiapp.db.UserInfoTable();
-    public static com.example.yonseiapp.db.UserInfoTable inst() {
-        return instance;
+    private static UserInfoTable instance = new UserInfoTable();
+    public static UserInfoTable inst() {return instance; }
+
+    public void load(Context ctx){
+        Utils.JsonLoad(UserInfoTable.class.getName(), this, ctx);
     }
 
     private JSONObject data = new JSONObject();
 
+    public void put(JSONObject params, Activity act){
+        try{
+            JSONObject userinfo = params.getJSONObject("userinfo");
+            System.out.println("put userinfo : " + userinfo);
 
-public void put(JSONObject params, Activity act) {
-    try {
-        JSONObject userinfo = params.getJSONObject("userinfo");
-        if(userinfo !=null) {
-            Utils.JsonMerge(this, userinfo);
-            Utils.JsonSave("UserInfoTable", this, act);
+            if (userinfo != null) {
+                Utils.JsonMerge(this, userinfo);
+                Utils.JsonSave("UserInfoTable", this, act);
+            }
+
+        }catch (Exception e){
+            System.out.println("UserInfoTable put : " + e);
         }
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 
-public JSONObject get() {
-    try {
-        return (JSONObject)this.get("userinfo");
-    } catch (Exception e) {
-        e.printStackTrace();
+    public JSONObject get(){
+        try{
+            System.out.println("jsonobject get : " + this.toString());
+            //return (JSONObject)this.get("userinfo");
+            return (JSONObject)this;
+        }catch(Exception e){
+            System.out.println("UserInfo Table get : " + e);
+        }
+        return null;
     }
-    return null;
-}
 
-public void del(Activity act) {
-    Utils.JsonClear(this);
-    Utils.JsonSave("UserInfoTable", this, act);
-}
-public void load(Context ctx){
-    Utils.JsonLoad(UserInfoTable.class.getName(),this, ctx);
-}
+    public void del(Activity act){
+        //Utils.JsonClear(this);
+        Utils.JsonSave("UserInfoTable",this,act);
+    }
 }
