@@ -41,14 +41,14 @@ public class StoreManagerActivity extends AppCompatActivity {
                 Intent i = new Intent(StoreManagerActivity.this, StoreAddActivity.class);
                 startActivity(i);
             }
-        })
+        });
 
         if (StoreTable.inst().size() == 0)
             putStores();
 
         adapter = new StoreAdapter(new StoreAdapter.DelCallBack() {
             @Override
-            public void del(int idx) {
+            public void del(final int idx) {
                 new AlertDialog.Builder(StoreManagerActivity.this)
                         .setMessage("지우시겠습니까?")
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -57,11 +57,16 @@ public class StoreManagerActivity extends AppCompatActivity {
                                 StoreTable.inst().del(idx);
                                 adapter.notifyDataSetChanged();
                             }
-                        })
+                        }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).show();
             }
         });
 
-        ((RecyclerView) findViewById(R.id.recyclerView)).setAdapter(new StoreAdapter());
+        ((RecyclerView)findViewById(R.id.recyclerView)).setAdapter(new StoreAdapter());
     }
 
     private void putStores() {
