@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.yonseiapp.R;
+import com.example.yonseiapp.utils.PostCallBack;
 import com.example.yonseiapp.utils.Utils;
 
 import org.json.JSONObject;
@@ -25,11 +26,11 @@ public class SignupActivity extends AppCompatActivity {
 
         try {
             JSONObject json = new JSONObject();
-            json.put("id", id);
+            json.put("ID", id);
             json.put("command", "signup");
             json.put("pwd", pwd);
 
-            Utils.post(json, new Utils.PostCallBack() {
+            Utils.post(json, new PostCallBack() {
                 @Override
                 public void onResponse(JSONObject ret, String errMsg) {
                     try {

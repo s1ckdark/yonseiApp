@@ -9,6 +9,10 @@ public class StoreTable {
 
     private JSONArray data = new JSONArray();
 
+    public void del(int i){
+        data.remove(i);
+    }
+
     public void put(int sidx,String name){
         try {
             JSONObject store = new JSONObject();

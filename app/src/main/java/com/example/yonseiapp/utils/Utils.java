@@ -40,6 +40,7 @@ public class Utils extends AppCompatActivity {
 
     static private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     static private OkHttpClient client = new OkHttpClient();
+
     static private Call post(String url, String json, Callback callback) {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
@@ -51,7 +52,7 @@ public class Utils extends AppCompatActivity {
         return call;
     }
 
-    static public void post(JSONObject params, final PostCallBack cb){
+    static public void post(JSONObject params, final PostCallBack cb) {
         post("http://192.168.1.50:8084", params.toString(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -60,52 +61,52 @@ public class Utils extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(Call call, Response response){
-                if(cb == null)
+            public void onResponse(Call call, Response response) {
+                if (cb == null)
                     return;
-                try{
-                    if (response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         String responseStr = response.body().string();
                         cb.onResponse(new JSONObject(responseStr), null);
-                    }
-                    else{
+                    } else {
                         cb.onResponse(null, response.message());
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     cb.onResponse(null, e.getMessage());
                 }
             }
         });
     }
 
-    public static void JsonMerge(JSONObject src, JSONObject desc ){
-        try{
+    public static void JsonMerge(JSONObject src, JSONObject desc) {
+        try {
             Iterator<String> it = desc.keys();
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 String key = it.next();
                 src.put(key, desc.get(key));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("JsonMerge : " + e);
         }
     }
 
-    public static void JsonSave(String className, JSONObject table, Context act){
+    public static void JsonSave(String className, JSONObject table, Context act) {
         SharedPreferences sharedPreferences = act.getSharedPreferences("myapplication", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(className, table.toString());
         editor.commit();
     }
 
-    public static void JsonLoad(String className, JSONObject table, Context act){
+    public static void JsonLoad(String className, JSONObject table, Context act) {
         SharedPreferences sharedPreferences = act.getSharedPreferences("myapplication", MODE_PRIVATE);
         String json = sharedPreferences.getString(className, null);
-        if(json == null)
+        if (json == null)
             return;
-        try{
+        try {
             JSONObject loadedJson = new JSONObject(json);
             Utils.JsonMerge(table, loadedJson);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("JsonLoad : " + e);
         }
     }
+}

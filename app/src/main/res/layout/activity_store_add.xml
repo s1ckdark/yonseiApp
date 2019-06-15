@@ -4,49 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.yonseiapp.activities.Stores.StoreAddActivity">
+    tools:context=".activities.Stores.StoreAddActivity">
 
+    <include layout="@layout/layout_topbar_store"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/redTheme2"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center"
-            android:onClick="onClickBack"
-            android:text="BACK"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/topTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/redTheme2"
-            android:gravity="center"
-            android:text="상점 추가"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="0"
-            android:background="@color/colorPrimaryDark"
-            android:onClick="onClickAddStoreSave"
-            android:padding="10dp"
-            android:text="Save"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
     <ScrollView
         android:background="@color/colorAccent"
         android:layout_width="0dp"
@@ -56,165 +21,133 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="40dp">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top"
-        android:id="@+id/storeSec">
-
-        <TextView
-            android:id="@+id/storeLabel"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:gravity="center"
-            android:text="스토어이름"
-            android:textColor="#121212" />
-
-        <EditText
-            android:id="@+id/edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="스토어 입력"
-            android:singleLine="true"
-            android:textColor="#121212"
-            android:textColorHint="#121212" />
-
-    </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="10dp"
-            android:background="@android:color/white"
+            android:padding="5dp"
+            android:background="@android:color/darker_gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/StoreSec"
-            android:id="@+id/couponSec">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="50dp"
+            <LinearLayout
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Coupon count"/>
+                android:orientation="horizontal">
 
-            <EditText
-                android:hint="Input coupon count"
-                android:id="@+id/coupon"
-                android:textColor="#0000ff"
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="Store Name "/>
+
+                <EditText
+                    android:hint="Input store name"
+                    android:id="@+id/storename"
+                    android:textColor="#0000ff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="Coupon count"/>
+
+                <EditText
+                    android:hint="Input coupon count"
+                    android:id="@+id/coupon"
+                    android:textColor="#0000ff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="Address"/>
+
+                <EditText
+                    android:hint="Input Address"
+                    android:id="@+id/addr"
+                    android:textColor="#0000ff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <Button
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/gps"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:onClick="onClickGPS"
+                android:text="Addr to GPS"
+                tools:layout_editor_absoluteX="198dp"
+                tools:layout_editor_absoluteY="498dp" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="Lat"/>
+
+                <EditText
+                    android:hint="Input Lat value"
+                    android:id="@+id/lat"
+                    android:textColor="#0000ff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="Lng"/>
+
+                <EditText
+                    android:hint="Input Lng value"
+                    android:id="@+id/lng"
+                    android:textColor="#0000ff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/couponSec"
-        android:id="@+id/addressSec">
 
-        <TextView
-            android:id="@+id/addressLabel"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:gravity="center"
-            android:text="주 소"
-            android:textColor="#121212" />
+    </ScrollView>
 
-        <EditText
-            android:id="@+id/address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="주소 입력"
-            android:singleLine="true"
-            android:textColor="#121212"
-            android:textColorHint="#121212" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/gpsBtn"
-        android:layout_height="50dp"
-        android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/addressSec"
-        android:onClick="onClickGPS"
-        android:text="주소 TO GPS"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gpsBtn"
-        android:id="@+id/latSec">
-
-
-
-        <TextView
-            android:id="@+id/lngLabel"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:gravity="center"
-            android:text="LAT"
-            android:textColor="#121212"
-            app:layout_constraintTop_toBottomOf="@+id/gpsBtn" />
-
-        <EditText
-            android:id="@+id/lng"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="LAT"
-            android:singleLine="true"
-            android:textColor="#121212"
-            android:textColorHint="#121212" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/latSec"
-        android:id="@+id/lngSec">
-
-        <TextView
-            android:id="@+id/addressLabel"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:gravity="center"
-            android:text="LNG"
-            android:textColor="#121212" />
-
-        <EditText
-            android:id="@+id/lat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="LNG"
-            android:singleLine="true"
-            android:textColor="#121212"
-            android:textColorHint="#121212" />
-
-    </LinearLayout>
-</ScrollView>
 </android.support.constraint.ConstraintLayout>

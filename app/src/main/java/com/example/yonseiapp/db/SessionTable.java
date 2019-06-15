@@ -48,7 +48,7 @@ public class SessionTable extends JSONObject {
 
             SharedPreferences sharedPreferences = act.getSharedPreferences("ysAPP", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();
+            editor.putString("SessionTable", this.toString());
             editor.commit();
 
         } catch(Exception e) {

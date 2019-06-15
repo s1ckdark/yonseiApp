@@ -7,58 +7,54 @@
     tools:context=".activities.MainActivity">
 
     <LinearLayout
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightof="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    android:background="@color/colorPrimaryDark"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:id="@id/top">
+
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="40dp"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
             android:layout_weight="0"
             android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:onClick="onClickBack"
             android:text="BACK"
-            android:textColor="@color/white" />
+            android:textColor="@android:color/white" />
 
         <TextView
-            android:id="@+id/topTitle"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/redTheme2"
             android:gravity="center"
-            android:text="Main"
-            android:textColor="@color/white" />
-
+            android:textColor="@android:color/white"
+            android:text="MAIN"/>
         <TextView
             android:layout_weight="0"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:textColor="@android:color/white"
             android:background="@color/colorPrimaryDark"
             android:padding="10dp"
             android:onClick="onClickStoreManager"
-            android:text="상점관리"/>
+            android:text="Management Store"/>
 
         <TextView
-            android:id="@+id/topRight"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:layout_weight="0"
-            android:background="@color/redTheme"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:text="플필보기"
-            android:onClick="onClickMyProfile"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimaryDark"
             android:padding="10dp"
-            android:textColor="@color/white" />
-
+            android:onClick="onClickMyProfile"
+            android:text="PROFILE"/>
 
     </LinearLayout>
 
@@ -97,5 +93,15 @@
         app:layout_constraintTop_toBottomOf="@+id/mainscreentext"
         app:layout_constraintVertical_bias="0.060000002" />
 
+    <fragment
+        app:layout_constraintTop_toBottomOf="@id/top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/map"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        class="com.google.android.gms.maps.MapFragment">
+    </fragment>
 
 </android.support.constraint.ConstraintLayout>
