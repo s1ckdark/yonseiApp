@@ -21,7 +21,7 @@ public class UserInfo {
 
             params.put("utk", SessionTable.inst().getSession());
 
-            Utils.post(params, new PostCallBack(){
+            Utils.post(params, new Utils.PostCallBack(){
                 @Override
                 public void onResponse(JSONObject ret, String errMsg){
                     try {
@@ -44,7 +44,7 @@ public class UserInfo {
             params.put("command", "userinfo_get");
             params.put("utk", SessionTable.inst().getSession());
 
-            Utils.post(params, new PostCallBack() {
+                Utils.post(params, new Utils.PostCallBack() {
                 @Override
                 public void onResponse(JSONObject ret, String errMsg) {
                     try {

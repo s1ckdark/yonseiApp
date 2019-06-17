@@ -30,7 +30,7 @@ public class SignupActivity extends AppCompatActivity {
             json.put("command", "signup");
             json.put("pwd", pwd);
 
-            Utils.post(json, new PostCallBack() {
+            Utils.post(json, new Utils.PostCallBack() {
                 @Override
                 public void onResponse(JSONObject ret, String errMsg) {
                     try {

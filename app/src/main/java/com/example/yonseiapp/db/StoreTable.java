@@ -13,13 +13,16 @@ public class StoreTable {
         data.remove(i);
     }
 
-    public void put(int sidx,String name){
+    public void put(int sidx, double lat, double lng, String desc, String name) {
         try {
             JSONObject store = new JSONObject();
-            store.put("sidx",sidx);
-            store.put("name",name);
+            store.put("sidx", sidx);
+            store.put("name", name);
+            store.put("lat", lat);
+            store.put("lng", lng);
+            store.put("desc", desc);
             data.put(store);
-        } catch (Exception e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
     }

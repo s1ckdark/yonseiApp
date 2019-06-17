@@ -5,7 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.yonseiapp.R;
 
 import org.json.JSONObject;
 
@@ -23,6 +26,9 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Utils extends AppCompatActivity {
 
+//    public interface PostCallBack {
+//        void onResponse(JSONObject ret, String errMsg);
+//    }
 
     public static void toast(final Context context,
                              final String msg) {
@@ -41,7 +47,7 @@ public class Utils extends AppCompatActivity {
     static private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     static private OkHttpClient client = new OkHttpClient();
 
-    static private Call post(String url, String json, Callback callback) {
+    static public Call post(String url, String json, Callback callback) {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .url(url)
@@ -53,7 +59,7 @@ public class Utils extends AppCompatActivity {
     }
 
     static public void post(JSONObject params, final PostCallBack cb) {
-        post("http://192.168.1.50:8084", params.toString(), new Callback() {
+        post("http://nomadseoul.com:8084", params.toString(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)
@@ -108,5 +114,39 @@ public class Utils extends AppCompatActivity {
         } catch (Exception e) {
             System.out.println("JsonLoad : " + e);
         }
+    }
+
+    public static void callGPS(String params, final PostCallBack cb){
+        String apiKey = "AIzaSyD36tH1XgJF42l5_ZQsblQXssEsAbT6QG0";
+        String url = "https://maps.googleapis.com/maps/api/geocode/json?";
+        Utils.post(url+"&key="+apiKey+"&address=".concat(params), params.toString(), new Callback(){
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (cb != null)
+                    cb.onResponse(null, e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response)  {
+                if (cb == null)
+                    return ;
+                try {
+                    if (response.isSuccessful()) {
+                        String responseStr = response.body().string();
+                        cb.onResponse(new JSONObject(responseStr), null);
+                        // Do what you want to do with the response.
+                    } else {
+                        cb.onResponse(null, response.message());
+                    }
+                } catch (Exception e) {
+                    cb.onResponse(null, e.getMessage());
+                }
+
+            }
+        });
+    }
+
+    public interface PostCallBack {
+        void onResponse(JSONObject ret, String errMsg);
     }
 }
