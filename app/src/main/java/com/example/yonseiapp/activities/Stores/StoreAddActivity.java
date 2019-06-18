@@ -1,6 +1,5 @@
 package com.example.yonseiapp.activities.Stores;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,26 +7,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.yonseiapp.R;
-
-import com.example.yonseiapp.activities.myProfile.MyProfileEditActivity;
 import com.example.yonseiapp.api.RetCallBack;
 import com.example.yonseiapp.api.UserInfo;
 import com.example.yonseiapp.db.StoreTable;
 import com.example.yonseiapp.db.UserInfoTable;
-import com.example.yonseiapp.utils.PostCallBack;
 import com.example.yonseiapp.utils.Utils;
-//import com.example.app.utils.Callback;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
-
-import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.Response;
+
+//import com.example.app.utils.Callback;
 
 public class StoreAddActivity extends AppCompatActivity {
 
@@ -88,8 +79,8 @@ public class StoreAddActivity extends AppCompatActivity {
         String name = ((EditText) findViewById(R.id.storename)).getText().toString();
         double lat = Double.parseDouble(((TextView) findViewById(R.id.lat)).getText().toString());
         double lng = Double.parseDouble(((TextView) findViewById(R.id.lng)).getText().toString());
-
-        StoreTable.inst().put(StoreTable.inst().size() + 1, lat, lng, "새로등록된".concat(name).concat("입니다."), name);
+        Integer coupon = Integer.valueOf(((EditText) findViewById(R.id.coupon)).getText().toString());
+        StoreTable.inst().put(StoreTable.inst().size() + 1, lat, lng, "새로등록된".concat(name).concat("입니다."), name,coupon);
 
 
         finish();

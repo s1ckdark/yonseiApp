@@ -1,6 +1,5 @@
 package com.example.yonseiapp.activities.Stores;
 
-import java.io.IOException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -71,8 +70,9 @@ public class StoreManagerActivity extends AppCompatActivity {
                 37.556990,37.556394,37.556794,37.555901};
         double []lngs = {126.936183,126.936741,126.93666,126.937127,126.937116,126.936376,
                 126.934713,126.937191,126.937031,126.938511};
+        Integer []coupons = {100,101,102,103,104,105,106,107};
         for (int i = 0; i < names.length; i++)
-            StoreTable.inst().put(i, lats[i],lngs[i],names[i].concat("입니다."), names[i]);
+            StoreTable.inst().put(i, lats[i],lngs[i],names[i].concat("입니다."), names[i],coupons[i]);
     }
 
     public void onClickBack(View v){

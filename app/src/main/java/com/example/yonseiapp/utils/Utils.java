@@ -5,10 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.EditText;
 import android.widget.Toast;
-
-import com.example.yonseiapp.R;
 
 import org.json.JSONObject;
 
@@ -22,7 +19,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import static android.content.Context.MODE_PRIVATE;
 
 public class Utils extends AppCompatActivity {
 
@@ -144,6 +140,22 @@ public class Utils extends AppCompatActivity {
 
             }
         });
+    }
+
+    public static void JsonClear(String className, JSONObject table, Context act) {
+        try {
+            Iterator<String> it = table.keys();
+            while (it.hasNext()) {
+                String key = it.next();
+                table.remove(key);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        SharedPreferences sharedPreferences = act.getSharedPreferences("YS_APP", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(className);
+        editor.commit();
     }
 
     public interface PostCallBack {

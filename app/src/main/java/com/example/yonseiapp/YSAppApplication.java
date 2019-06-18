@@ -1,11 +1,8 @@
 package com.example.yonseiapp;
 
 import android.app.Application;
-import android.content.SharedPreferences;
-import android.se.omapi.Session;
 import android.util.Log;
 
-import com.example.yonseiapp.api.UserInfo;
 import com.example.yonseiapp.db.SessionTable;
 import com.example.yonseiapp.db.UserInfoTable;
 
