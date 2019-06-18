@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
 
@@ -79,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
             public void onMapReady(GoogleMap googleMap) {
                 //지도에 추가 작업을 할 수 있을 때 호출 되도록 세팅
                 MarkerOptions marker = marker(37.558895, 126.936923, "신촌", "신촌입니다");
-                addAllMarker();
                 googleMap.addMarker(marker);
                 LatLng pos = marker.getPosition();
                 CameraUpdate cam = CameraUpdateFactory.newLatLng(pos);
@@ -88,6 +90,17 @@ public class MainActivity extends AppCompatActivity {
                 CameraUpdate cam2 = CameraUpdateFactory.zoomTo(17);
                 googleMap.animateCamera(cam2);
 
+                if (StoreTable.inst().size() == 0){
+                    String[] names = {"Starbucks", "Coffeebean", "Bluebottle", "Ediya", "Orot", "Zagmachi", "Nespresso", "Illy"};
+                    double []lats = {37.558997,37.558980,37.558665,37.558529,37.557908,37.557117,
+                            37.556990,37.556394,37.556794,37.555901};
+                    double []lngs = {126.936183,126.936741,126.93666,126.937127,126.937116,126.936376,
+                            126.934713,126.937191,126.937031,126.938511};
+                    Integer []coupons = {100,101,102,103,104,105,106,107};
+                    for (int i = 0; i < names.length; i++)
+                        StoreTable.inst().put(i, lats[i],lngs[i],names[i].concat("입니다."), names[i],coupons[i]);
+                }
+                addAllMarker();
                 int markernum = StoreTable.inst().size();
                 JSONObject store = null;
 
