@@ -72,7 +72,7 @@ public class StoreManagerActivity extends AppCompatActivity {
                 126.934713,126.937191,126.937031,126.938511};
         Integer []coupons = {100,101,102,103,104,105,106,107};
         for (int i = 0; i < names.length; i++)
-            StoreTable.inst().put(i, lats[i],lngs[i],names[i].concat("입니다."), names[i],coupons[i]);
+            StoreTable.inst().put(i, lats[i],lngs[i], names[i],coupons[i]);
     }
 
     public void onClickBack(View v){

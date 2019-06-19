@@ -80,7 +80,7 @@ public class StoreAddActivity extends AppCompatActivity {
         double lat = Double.parseDouble(((TextView) findViewById(R.id.lat)).getText().toString());
         double lng = Double.parseDouble(((TextView) findViewById(R.id.lng)).getText().toString());
         Integer coupon = Integer.valueOf(((EditText) findViewById(R.id.coupon)).getText().toString());
-        StoreTable.inst().put(StoreTable.inst().size() + 1, lat, lng, "새로등록된".concat(name).concat("입니다."), name,coupon);
+        StoreTable.inst().put(StoreTable.inst().size() + 1, lat, lng, "새로등록된".concat(name).concat("입니다."),coupon);
 
 
         finish();

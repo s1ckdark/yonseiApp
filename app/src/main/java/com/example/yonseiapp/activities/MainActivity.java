@@ -9,7 +9,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.yonseiapp.R;
 import com.example.yonseiapp.activities.Stores.StoreManagerActivity;
@@ -28,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
+
     GoogleMap gMap = null;
     // onRequestPermissionsResult에서 구별자
     private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                gMap = googleMap;
                 //지도에 추가 작업을 할 수 있을 때 호출 되도록 세팅
                 MarkerOptions marker = marker(37.558895, 126.936923, "신촌", "신촌입니다");
                 googleMap.addMarker(marker);
@@ -98,9 +99,9 @@ public class MainActivity extends AppCompatActivity {
                             126.934713,126.937191,126.937031,126.938511};
                     Integer []coupons = {100,101,102,103,104,105,106,107};
                     for (int i = 0; i < names.length; i++)
-                        StoreTable.inst().put(i, lats[i],lngs[i],names[i].concat("입니다."), names[i],coupons[i]);
+                        StoreTable.inst().put(i, lats[i],lngs[i],names[i],coupons[i]);
                 }
-                addAllMarker();
+
                 int markernum = StoreTable.inst().size();
                 JSONObject store = null;
 
@@ -109,15 +110,45 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("store", "store"+store);
 
                     try{
-                        marker = marker(store.getDouble("lat"), store.getDouble("lng"), store.getString("desc"), store.getString("name") );
+                        marker = marker(store.getDouble("lat"), store.getDouble("lng"), store.getString("name"), store.getString("coupon") );
+//                        marker = marker(store.getDouble("lat"), store.getDouble("lng"), store.getString("desc"), store.getString("name") );
                         googleMap.addMarker(marker);
-//                                .setTag(store.getInt("coupon"));;
+//                        gMap.setOnMarkerClickListener();
 
 
                     }catch(Exception e) {}
 
                 }
-                gMap = googleMap;
+                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        //지도를 원하는 위치로 이동
+                        LatLng pos = marker.getPosition();
+                        CameraUpdate cam = CameraUpdateFactory.newLatLng(pos);
+
+                        gMap.animateCamera(cam);
+
+                        // Retrieve the data from the marker.
+//                        Integer clickCount = (Integer) marker.getTag();
+//                        Integer clickCount = marker.getSnippet();
+                        String clickCountString = marker.getSnippet();
+                        Log.d("click", clickCountString);
+                        Integer clickCount = new Integer(clickCountString.toString());
+                        // Check if a click count was set, then display the click count.
+                        if (clickCount != null) {
+                            clickCount = clickCount - 1;
+
+                            marker.setSnippet(clickCount.toString());
+                        }
+
+                        // Return false to indicate that we have not consumed the event and that we wish
+                        // for the default behavior to occur (which is for the camera to move such that the
+                        // marker is centered and for the marker's info window to open, if it has one).
+                        return false;
+                    }
+                });
+
+
                 if(checkPermission())
                     googleMap.setMyLocationEnabled(true);
             }
@@ -128,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     public void addNewMarker(int i){
         JSONObject store = StoreTable.inst().get(i);
         try {
-            MarkerOptions marker = marker(store.getDouble("lat"), store.getDouble("lng"), store.getString("desc"), store.getString("name"));
+            MarkerOptions marker = marker(store.getDouble("lat"), store.getDouble("lng"), store.getString("name"), store.getString("coupon") );
             gMap.addMarker(marker);
         }catch(Exception e) {}
 
@@ -140,40 +171,13 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i<markernum; i++){
             store = StoreTable.inst().get(i);
              try{
-                MarkerOptions marker = marker(store.getDouble("lat"), store.getDouble("lng"), store.getString("desc"), store.getString("name") );
+                MarkerOptions marker = marker(store.getDouble("lat"), store.getDouble("lng"), store.getString("name"), store.getString("coupon"));
                 gMap.addMarker(marker);
-//                marker.setTag(store.getInt("coupon"));;
+
 
             }catch(Exception e) {}
 
         }
-    }
-
-
-    public boolean onMarkerClick(final Marker marker) {
-        //지도를 원하는 위치로 이동
-        LatLng pos = marker.getPosition();
-        CameraUpdate cam = CameraUpdateFactory.newLatLng(pos);
-
-        gMap.animateCamera(cam);
-
-        // Retrieve the data from the marker.
-        Integer clickCount = (Integer) marker.getTag();
-
-        // Check if a click count was set, then display the click count.
-        if (clickCount != null) {
-            clickCount = clickCount - 1;
-            marker.setTag(clickCount);
-            Toast.makeText(this,
-                    marker.getTitle() +
-                            " 쿠폰이 " + clickCount + " 개 남았습니다.",
-                    Toast.LENGTH_SHORT).show();
-        }
-
-        // Return false to indicate that we have not consumed the event and that we wish
-        // for the default behavior to occur (which is for the camera to move such that the
-        // marker is centered and for the marker's info window to open, if it has one).
-        return false;
     }
 
     private boolean checkPermission(){

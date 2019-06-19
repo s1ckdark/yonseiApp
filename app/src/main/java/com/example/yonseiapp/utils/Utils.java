@@ -28,15 +28,27 @@ public class Utils extends AppCompatActivity {
 
     public static void toast(final Context context,
                              final String msg) {
-        if (context != null && msg != null) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-                @Override
-                public void run() {
-                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-                }
-            });
+//        if (context != null && msg != null) {
+//            new Handler(Looper.getMainLooper()).post(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
+        if (context == null || msg == null) {
+            return;
         }
+
+        Handler handler = new Handler(Looper.getMainLooper());  // 핸들러에 메인 루퍼를 인자로 전달
+        handler.post(new Runnable() {   // 메인 스레드로 Runnable 객체를 보냄, runOnUiThread()함수 사용과 유사
+
+            @Override
+            public void run() {     // run()함수는 메인 스레드에서 실행 됨
+                Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
